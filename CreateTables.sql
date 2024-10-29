@@ -1,10 +1,11 @@
 drop table if exists OrderStatus, AccInfo, SHFees, StockDelivery, CustSeleItems, AccCart, ShippingLocation, Payment, Account, Cart, Fees, ProdInventory, parts;
 
-/*
-The following table represents the parts entity within the ER Diagram. 
-This table contains instance data regarding each product in the legacy 
+/******************************************************
+The following table represents the parts entity within
+the ER Diagram. This table contains instance data
+regarding each product in the legacy 
 product database, no inventory information.
-*/
+******************************************************/
 
 CREATE TABLE parts
 (
@@ -16,10 +17,10 @@ CREATE TABLE parts
 );
 
 
-/*
-The folloiwng table represents inventory data that correlates with each
-roduct in the product legacy database.
-*/
+/******************************************************
+The folloiwng table represents inventory data that
+correlates with each product in the product legacy database.
+******************************************************/
 
 CREATE TABLE ProdInventory
 (
@@ -28,10 +29,10 @@ CREATE TABLE ProdInventory
 );
 
 
-/*
-The following table represents shipping and handling fees regarding each
-product in the product legacy database. 
-*/
+/******************************************************
+The following table represents shipping and handling 
+fees regarding each product in the product legacy database. 
+******************************************************/
 
 CREATE TABLE Fees
 (
@@ -42,11 +43,11 @@ CREATE TABLE Fees
 );
 
 
-/*
-    The following table correlates with the entity Cart within the
-    ER Diagram. The entity cart represents the items associated with
-    an account.
-*/
+/******************************************************
+The following table correlates with the entity Cart 
+within the ER Diagram. The entity cart represents the
+items associated with an account.
+******************************************************/
 
 CREATE TABLE Cart
 (
@@ -56,10 +57,11 @@ CREATE TABLE Cart
 );
 
 
-/*
-The following table represents the entity Account. Each instance of an account
-has a AccID, Email, Password, Phone Number, and a boolean value if its been created.
-*/
+/******************************************************
+The following table represents the entity Account. 
+Each instance of an account has a AccID, Email, Password,
+Phone Number, and a boolean value if its been created.
+******************************************************/
 
 CREATE TABLE Account
 (
@@ -67,15 +69,15 @@ CREATE TABLE Account
     Email VARCHAR(35) NOT NULL,
     Password VARCHAR(16) NOT NULL,
     PhoneNum VARCHAR(15) NOT NULL,
-    IsCreated BOOLEAN NOT NULL
+    AccIsCreated BOOLEAN NOT NULL
 );
 
 
-/*
-The following table represents the entity Payment. Each instance of a payment has
-a Full Name, Card Number, and an Experation Date.
-
-*/
+/******************************************************
+The following table represents the entity Payment.
+Each instance of a payment has a Full Name, Card Number,
+and an Experation Date.
+******************************************************/
 
 CREATE TABLE Payment
 (
@@ -86,10 +88,11 @@ CREATE TABLE Payment
 );
 
 
-/*
-The following table represents the entity ShippingLocation. Each shipping location
-has a State, City, Street Address, and either a Apartment, Suite, Unit, Building number/name/etc.
-*/
+/******************************************************
+The following table represents the entity ShippingLocation.
+Each shipping location has a State, City, Street Address,
+and either a Apartment, Suite, Unit, Building number/name/etc.
+******************************************************/
 
 CREATE TABLE ShippingLocation
 (
@@ -101,12 +104,14 @@ CREATE TABLE ShippingLocation
 );
 
 
-/*
-The following table represents the many to many relationship between the entities Cart and Account.
-To when the instance of this relation occurs, (a cart is created) an each instance
-to when this relationship occurs an AccountID is associated with a CartID and creates
-an instance of the current time.
-*/
+/******************************************************
+The following table represents the many to many
+relationship between the entities Cart and Account.
+To when the instance of this relation occurs, (a cart
+is created) an each instance to when this relationship
+occurs an AccountID is associated with a CartID and
+creates an instance of the current time.
+******************************************************/
 
 CREATE TABLE AccCart
 (
@@ -118,11 +123,13 @@ CREATE TABLE AccCart
 );
 
 
-/*
-The following table represents the many to many relationship between the entities Cart and parts.
-Each instance that this relationship occurs, (a customer selects and item) a cartid and a number(partid)
+/******************************************************
+The following table represents the many to many
+relationship between the entities Cart and parts.
+Each instance that this relationship occurs, (a customer 
+selects and item) a cartid and a number(partid)
 is associated.
-*/
+******************************************************/
 
 CREATE TABLE CustSeleItems
 (
@@ -133,11 +140,13 @@ CREATE TABLE CustSeleItems
 );
 
 
-/*
-The following table represents the many to many relationship between the entities parts and ProdInventory.
-Each instance to when this relationship occurs, a number (partid) and a InventoryID are associated
-and then creates an instance of a date to when the associativity was created.
-*/
+/******************************************************
+The following table represents the many to many
+relationship between the entities parts and ProdInventory.
+Each instance to when this relationship occurs, a number
+(partid) and a InventoryID are associated and then creates
+an instance of a date to when the associativity was created.
+******************************************************/
 
 CREATE TABLE StockDelivery
 (
@@ -149,12 +158,13 @@ CREATE TABLE StockDelivery
 );
 
 
-/*
-The following table represents the many to many relationship between the entities
-parts and Fees. This relationship creates associativity between a number (partid) and
-a FeeID. More specifically, each part is associated with a shipping charge and a
-handle charge.
-*/
+/******************************************************
+The following table represents the many to many
+relationship between the entities parts and Fees.
+This relationship creates associativity between a number
+(partid) and a FeeID. More specifically, each part is
+associated with a shipping charge and a handle charge.
+******************************************************/
 
 CREATE TABLE SHFees
 (
@@ -165,31 +175,37 @@ CREATE TABLE SHFees
 );
 
 
-/*
-This table represents a greater than binary relationship between the entities Account, Payment, and
-Shipping Location. When an instance of this relationship occurs, it sets the boolean value IsCreated
-to represent an account with valid information associated with it.
-*/
+/******************************************************
+This table represents a greater than binary relationship
+between the entities Account, Payment, and
+Shipping Location. When an instance of this relationship
+occurs, it sets the boolean value IsCreated
+to represent an account with valid information
+associated with it.
+******************************************************/
 
 CREATE TABLE AccInfo
 (
     AccID INT,
     PayID INT,
     ShipID INT,
-    IsValid BOOLEAN NOT NULL,
+    AccIsValid BOOLEAN NOT NULL,
     FOREIGN KEY (AccID) REFERENCES Account(AccID),
     FOREIGN KEY (PayID) REFERENCES Payment(PayID),
     FOREIGN KEY (ShipID) REFERENCES ShippingLocation(ShipID)
 );
 
 
-/*
-The table below represents the entity OrderStatus which represents an instance of a greater than binary
-relattionship between the entities Account, Payment, and ShippingLocation. This relation relationship
-occurs when the instance of a transaction occurs. When this relationship occurs, an instance data occurs
-to represent a valid transaction. For example, time of the transaction, the date of the transation, if the
-transaction was authorized, and if it has been shipped.
-*/
+/******************************************************
+The table below represents the entity OrderStatus which
+represents an instance of a greater than binary
+relattionship between the entities Account, Payment, 
+and ShippingLocation. When this relationship occurs,
+an instance data occurs to represent a valid transaction.
+For example, time of the transaction, the date of the 
+transation, if the transaction was authorized,
+and if it has been shipped.
+*******************************************************/
 
 CREATE TABLE OrderStatus
 (   

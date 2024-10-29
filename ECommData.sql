@@ -17,7 +17,7 @@ INSERT INTO Cart (Time, Date) VALUES
     (CURRENT_TIME, CURRENT_DATE),
     (CURRENT_TIME, CURRENT_DATE);
 
-INSERT INTO Account (Email, Password, PhoneNum, IsCreated) VALUES
+INSERT INTO Account (Email, Password, PhoneNum, AccIsCreated) VALUES
     ('helloimunderthe@gmail.com', '1a2s3d4f5', '111-111-1111', True),
     ('waterpleasehelpme@gmail.com', '1a2s3d4f5g', '222-222-2222', True);
 
@@ -51,7 +51,7 @@ INSERT INTO SHFees (number, FeeID) VALUES
     (2,2),
     (3,3);
 
-INSERT INTO AccInfo (AccID, PayID, ShipID, IsCreated) VALUES
+INSERT INTO AccInfo (AccID, PayID, ShipID, AccIsValid) VALUES
     (1, 1, 1, True),
     (2, 2, 2, True);
 
