@@ -1,3 +1,3 @@
 # Software Engineering CSCI 467 Group Project
 
-## Chris Branch :D
+## Chris Branch
