@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  
+  <head>
+    <link href="/src/input.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/wrench.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Wrench</title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/main.js"></script>
+    <h1>Checkout</h1>
+
+    <form id="cardform">
+      <label for="cardNumber">Card Number:</label><br>
+      <input type="text" id="cardNumber" maxlength="16" placeholder="1234 5678 9012 3456" required><br><br>
+      
+      <label for="expiryDate">Expiration Date:</label><br>
+      <input type="text" id="expiriationDate" placeholder="MM/YY" required><br><br>
+      
+      <label for="securtyCode">Security Code:</label><br>
+      <input type="text" id="securityCode" maxlength="3" placeholder="123" required><br><br>
+      
+      <button type="button" onclick="validateForm()">Submit</button>
+    </form>
+
+    <script>
+        function validateForm()
+        {
+          const cardNumber = document.getElementById("cardNumber").value;
+          const expirationDate = document.getElementById("expirationDate").value;
+          const securityCode = document.getElementById("security").value;
+          
+          // Basic validation example (for testing purposes)
+          if (!cardNumber || cardNumber.length !== 16 || isNaN(cardNumber))
+          {
+            alert("Please enter a valid 16-digit card number.");
+            return;
+          }
+
+          if (!expirationDate || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(expirationDate))
+          {
+            alert("Please enter a valid expiration date (MM/YY).");
+            return;
+          }
+
+          if (!securityCode || securityCode.length !== 3 || isNaN(securityCode))
+          {
+            alert("Please enter a valid 3-digit Security Code.");
+            return;
+          }
+          
+          alert("Order placed, thanks for shopping at The Wrench!");
+        }
+    </script>
+
+  </body>
+</html>
