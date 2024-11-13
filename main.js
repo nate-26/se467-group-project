@@ -1,23 +1,36 @@
 import './src/input.css'
 document.querySelector('#app').innerHTML = `
-<div class="bg-red-500 p-4">Checkout</div>
+<div class="bg-red-500 p-4 text-3xl">Checkout</div>
+    
+    <div class="flex justify-center space-x-8">
+        <div><h1 class="text-4xl text-white">The Wrench</h1></div>
+    </div>
 
-
+    <div class="flex justify-center space-x-8"><img src="/wrench.png" class="w-32"></div>
     
     <form id="custInfo">
-      <label for="custFName">First Name:</label><br>
-      <input type="text" id="custFName" maxlength="30" placeholder="John" required><br><br>
-      
-      <label for="custLName">Last Name:</label><br>
-      <input type="text" id="custLName" placeholder="Lehuta" required><br><br>
-      
-      <label for="streetAddr">Street Address:</label><br>
-      <input type="text" id="streetAddr" placeholder="308 Negra Arroyo Lane" required><br><br>
-      
-      <label for="cityAddr></label><br>
-      <input type="text" id="cityAddr" placeholder="Albuquerque" required><br>
+    <div class="flex justify-center space-x-8">
+      <div><br><label class="text-white" for="custFName">First Name:</label><br></div>
+      <div><br><input type="text" id="custFName" maxlength="30" placeholder="John" required><br><br></div>
+    </div>  
 
-        <label for="states">Select your state:</label><br>
+      <div class="flex justify-center space-x-8">
+        <div><label class="text-white" for="custLName">Last Name:</label><br></div>
+        <div><input type="text" id="custLName" placeholder="Lehuta" required><br><br></div>
+      </div>
+
+      <div class="flex justify-center space-x-1">
+        <div><label class="text-white" for="streetAddr">Street Address:</label><br></div>
+        <div><input type="text" id="streetAddr" placeholder="308 Negra Arroyo Lane" required><br></div>
+      </div>
+
+      <div class="flex justify-center space-x-8">
+        <div><label class="text-white" for="cityAddr></label><br></div>
+        <div><input type="text" id="cityAddr" placeholder="Albuquerque" required><br></div>
+      </div>
+      
+      <div class="flex justify-center space-x-12">
+        <div> <label class="text-white" for="states">Select a state:</label><br></div>
         <select id="states" name="states">
             <option value="">-- Select a state --</option>
             <option value="AL">Alabama</option>
@@ -71,22 +84,23 @@ document.querySelector('#app').innerHTML = `
             <option value="WI">Wisconsin</option>
             <option value="WY">Wyoming</option>
         </select>
-
+        </div>
     </form>
 
-
+    <div class="flex justify-center space-x-8">
     <form id="cardform">
-      <br><label for="cardNumber">Card Number:</label><br>
-      <input type="text" id="cardNumber" maxlength="16" placeholder="1234 5678 9012 3456" required><br><br>
+      <div><br><br><label class="text-white" for="cardNumber">Card Number:</label><br></div>
+      <div><input type="text" id="cardNumber" maxlength="16" placeholder="1234 5678 9012 3456" required><br></div>
       
-      <label for="expiryDate">Expiration Date:</label><br>
-      <input type="text" id="expiriationDate" maxlength="4" placeholder="MM/YY" required><br><br>
+      <div><label class="text-white" for="expiryDate">Expiration Date:</label><br></div>
+      <div><input type="text" id="expiriationDate" maxlength="4" placeholder="MM/YY" required><br></div>
       
-      <label for="securtyCode">Security Code:</label><br>
-      <input type="text" id="securityCode" maxlength="3" placeholder="123" required><br><br>
+      <div><label class="text-white" for="securtyCode">Security Code:</label><br></div>
+      <div><input type="text" id="securityCode" maxlength="3" placeholder="123" required><br><br></div>
       
-      <button class="button button--action" type="button" onclick="validateForm()">Confirm Payment</button>
+      <div><button class="button button--action" type="button" onclick="validateForm()">Confirm Payment</button></div>
     </form>
+    </div>
 
     <script>
       function validateForm()
@@ -96,17 +110,20 @@ document.querySelector('#app').innerHTML = `
           const cvv = document.getElementById("cvv").value;
           
           // Basic validation example (for educational purposes)
-          if (!cardNumber || cardNumber.length !== 16 || isNaN(cardNumber)) {
-              alert("Please enter a valid 16-digit card number.");
-              return;
+          if (!cardNumber || cardNumber.length !== 16 || isNaN(cardNumber))
+          {
+            alert("Please enter a valid 16-digit card number.");
+            return;
           }
-          if (!expiryDate || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) {
-              alert("Please enter a valid expiration date (MM/YY).");
-              return;
+          if (!expiryDate || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate))
+          {
+            alert("Please enter a valid expiration date (MM/YY).");
+            return;
           }
-          if (!cvv || cvv.length !== 3 || isNaN(cvv)) {
-              alert("Please enter a valid 3-digit CVV.");
-              return;
+          if (!cvv || cvv.length !== 3 || isNaN(cvv))
+          {
+            alert("Please enter a valid 3-digit CVV.");
+            return;
           }
           
           alert("Order placed, thanks for shopping at The Wrench!");
