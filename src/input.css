@@ -9,6 +9,17 @@
 }
 
 .button--action{
-    @apply bg-violet-400 text-purple-800;
+    @apply bg-white text-black hover:bg-purple-800 hover:text-white transition-colors duration-200;
 }
 
+.error-splash {
+    @apply fixed top-4 left-1/2 transform -translate-x-1/2 z-50 
+           bg-red-600 text-white p-4 rounded-lg shadow-lg
+           transition-opacity duration-500 ease-in-out;
+    max-width: 90%;
+    width: 400px;
+  }
+  
+  .error-splash.hide {
+    @apply opacity-0 pointer-events-none;
+  }

@@ -1,9 +1,14 @@
 import './src/input.css'
 document.querySelector('#app').innerHTML = `
 <div class="bg-red-500 p-4 text-3xl">Checkout</div>
+
+<div id="errorSplash" class="error-splash hide">
+  <div class="font-bold mb-2">Invalid Card Information</div>
+  <div>Please check your card details and input the correct information.</div>
+</div>
     
     <div class="flex justify-center space-x-8">
-        <div><h1 class="text-4xl text-white">The Wrench</h1><br></div>
+      <div><h1 class="text-4xl text-white">The Wrench</h1><br></div>
     </div>
 
     <div class="flex justify-center space-x-8"><img src="/wrench.png" class="w-32"></div>
@@ -103,31 +108,52 @@ document.querySelector('#app').innerHTML = `
     </div>
 
     <script>
+      function showError(message)
+      {
+        const errorSplash = document.getElementById('errorSplash');
+        errorSplash.innerHTML = message;
+        errorSplash.classList.remove('hide');
+        
+        // Hide the error after 5 seconds
+        setTimeout(() =>
+        {
+          errorSplash.classList.add('hide');
+        }, 5000);
+      }
+
       function validateForm()
       {
-          const cardNumber = document.getElementById("cardNumber").value;
-          const expiryDate = document.getElementById("expiryDate").value;
-          const cvv = document.getElementById("cvv").value;
-          
-          // Basic validation example (for educational purposes)
-          if (!cardNumber || cardNumber.length !== 16 || isNaN(cardNumber))
-          {
-            alert("Please enter a valid 16-digit card number.");
-            return;
-          }
-          if (!expiryDate || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate))
-          {
-            alert("Please enter a valid expiration date (MM/YY).");
-            return;
-          }
-          if (!cvv || cvv.length !== 3 || isNaN(cvv))
-          {
-            alert("Please enter a valid 3-digit CVV.");
-            return;
-          }
-          
-          alert("Order placed, thanks for shopping at The Wrench!");
+        const cardNumber = document.getElementById("cardNumber").value;
+        const expiryDate = document.getElementById("expirationDate").value;
+        const securityCode = document.getElementById("securityCode").value;
+        
+        // Basic validation
+        if (!cardNumber || cardNumber.length !== 16 || isNaN(cardNumber))
+        {
+          showError('<div class="font-bold mb-2">Invalid Card Number</div><div>Please enter a valid 16-digit card number.</div>');
+          return;
         }
+        
+        if (!expiryDate || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate))
+        {
+          showError('<div class="font-bold mb-2">Invalid Expiration Date</div><div>Please enter a valid expiration date (MM/YY).</div>');
+          return;
+        }
+        
+        if (!securityCode || securityCode.length !== 3 || isNaN(securityCode))
+        {
+          showError('<div class="font-bold mb-2">Invalid Security Code</div><div>Please enter a valid 3-digit security code.</div>');
+          return;
+        }
+        
+        // If validation passes
+        showError('<div class="font-bold mb-2 text-green-200">Success!</div><div>Order placed, thanks for shopping at The Wrench!</div>');
+        
+        // Optional: Reset form after successful submission
+        document.getElementById("cardform").reset();
+      }
     </script>
+
+    
 
 `
