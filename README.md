@@ -1,5 +1,4 @@
 # Software Engineering CSCI 467 Group Project
-
 ### Product System - Problem Statement
 
 As a group of software engineers with a company that sells auto parts via a catalog and mail order, you are tasked to build a new system that enables Internet customers to place and pay for orders online. The system will handle credit card payment, assist in packing and shipping of the order, and keep inventory.
@@ -15,3 +14,14 @@ A second interface to the new system will run on workstations in the warehouse: 
 A third interface also runs in the warehouse, at the receiving desk. Whenever products are delivered they are added to the inventory: they can be recognized by their description or part number. Their quantity on hand is updated. Note that the legacy product database does not contain inventory information.
 
 And lastly, there will be an administrative interface that allows to set the shipping and handling charges, as well as view all orders. Shipping and handling charges are based on the weight of a complete order. This interface allows to set the weight brackets and their charges. Orders can be searched based on date range, status (authorized, shipped) or prize range. The complete order detail is displayed for a selected order.
+## Dependencies and Resources Used
+TailwindCSS \
+    https://tailwindcss.com/docs/installation/using-postcss
+
+Heroicons \
+    https://heroicons.com/
+
+Componentland \
+    https://componentland.com/components
+
+
