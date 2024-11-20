@@ -9,7 +9,5 @@ window.addEventListener('load', () => {
                          '/ege', '/receiving', '/warehouse', '/careers',
                          '/admin', '/checkout'];
     const currentPath = window.location.pathname;
-    if (!validRoutes.includes(currentPath)) {
-        window.location.href = '/404.html';
-    }
+    if (!validRoutes.includes(currentPath)) window.location.href = '/404.html';
 });
