@@ -16,6 +16,7 @@
     "vite": "^5.4.9"
   },
   "dependencies": {
+    "express": "^4.21.1",
     "pdfkit": "^0.15.1"
   }
 }
