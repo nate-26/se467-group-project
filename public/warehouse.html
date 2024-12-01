@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  
+  <head>
+    <link href="/src/input.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/wrench.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Wrench - Admin Page</title>
+  </head>
+  <body>
+    <style>
+      body{
+        text-align: center;
+      }
+      section{
+        display: none;
+      }
+      section.active{
+        display: block;
+      }
+    </style>
+    <header>
+      <nav class="bg-white border-gray-200 rounded-lg m-4">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <h1 class="text-xl font-semibold">Admin Page</h1>
+          <button class="nav-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700" data-target="#orders">Orders</button>
+          <button class="nav-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700" data-target="#shipping">Shipping and Handling Charges</button>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section id="orders">
+        <p>This is the orders section</p>
+        <div align="center">
+          <iframe src="https://giphy.com/embed/wAxlCmeX1ri1y" width="480" height="360"></iframe>
+        </div>
+      </section>
+      <section id="shipping">
+        <p>This is the shipping and handling section.</p>
+        <div align="center">
+          <iframe src="https://giphy.com/embed/xT4uQfHn1CUGyYsiiY" width="480" height="480"></iframe>
+        </div>
+      </section>
+    </main>
+    <script src="/admin.js"></script>
+  </body>
+</html>
