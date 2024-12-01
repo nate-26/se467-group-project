@@ -5,10 +5,10 @@ const app = express();
 const PORT = 3000;
 
 const dbConfig = {
-    host: 'blitz.cs.niu.edu',
-    user: 'student',
-    password: 'student',
-    database: 'csci467',
+    host: process.env.LEGACY_DB_HOST,
+    user: process.env.LEGACY_DB_USER,
+    password: process.env.LEGACY_DB_PASSWORD,
+    database: process.env.LEGACY_DB_NAME
 };
 
 app.get('/', async (req, res) => {
@@ -38,9 +38,9 @@ app.get('/', async (req, res) => {
                         background-color: #f2f2f2;
                         text-align: left;
                     }
-                    a {
-                        color: blue;
-                        text-decoration: underline;
+                    img {
+                        max-width: 100px;
+                        height: auto;
                     }
                 </style>
             </head>
@@ -51,9 +51,8 @@ app.get('/', async (req, res) => {
                     ${rows.map(row => `
                         <tr>
                             ${Object.entries(row).map(([key, value]) => {
-                                // Check if the key is 'pictureURL' and render as a clickable link
-                                if (key === 'pictureURL') {
-                                    return `<td><a href="${value}" target="_blank">${value}</a></td>`;
+                                if (key === 'image_url') {
+                                    return `<td><img src="${value}" alt="Part Image"></td>`;
                                 }
                                 return `<td>${value}</td>`;
                             }).join('')}
