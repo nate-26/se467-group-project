@@ -39,28 +39,95 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function displayData(containerId, data) {
         const container = document.getElementById(containerId);
-        container.innerHTML = ''; 
-
+        container.innerHTML = '';
+        
         if (data.length === 0) {
-            container.innerHTML = '<p>No data available.</p>';
+            container.innerHTML = '<p class="text-gray-500 text-center py-4">No data available.</p>';
             return;
         }
-
+        
         const table = document.createElement('table');
-        table.classList.add('min-w-full', 'bg-white', 'border', 'border-gray-300');
-
+        table.classList.add(
+            'min-w-full', 
+            'bg-white', 
+            'shadow-md', 
+            'rounded-lg', 
+            'overflow-hidden', 
+            'w-full', 
+            'border-collapse'
+        );
+        
         const headers = Object.keys(data[0]);
-        table.innerHTML = `<thead><tr>${headers.map(header => `<th class="px-4 py-2 border">${header}</th>`).join('')}</tr></thead>`;
+        
+        // Enhanced table header
+        const thead = document.createElement('thead');
+        thead.innerHTML = `
+            <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                ${headers.map(header => 
+                    `<th class="px-6 py-3 text-left font-semibold tracking-wider border-b">${header}</th>`
+                ).join('')}
+            </tr>
+        `;
         
         const tbody = document.createElement('tbody');
-        data.forEach(row => {
+        tbody.classList.add('text-gray-600', 'text-sm', 'font-light');
+        
+        data.forEach((row, index) => {
             const rowHTML = document.createElement('tr');
-            rowHTML.innerHTML = headers.map(header => `<td class="px-4 py-2 border">${row[header]}</td>`).join('');
+            rowHTML.classList.add(
+                'border-b', 
+                'border-gray-200', 
+                'hover:bg-gray-100',
+                index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+            );
+            
+            rowHTML.innerHTML = headers.map(header => {
+                let cellContent = row[header];
+                
+                // Check if the content looks like an image URL
+                if (typeof cellContent === 'string' && isImageUrl(cellContent)) {
+                    cellContent = `
+                        <img 
+                            src="${cellContent}" 
+                            alt="${header}" 
+                            class="w-full h-20 object-cover rounded-md"
+                            onerror="this.onerror=null; this.src='placeholder.jpg'; this.alt='Image not found'"
+                        />
+                    `;
+                }
+                
+                return `
+                    <td class="px-6 py-3 text-left whitespace-nowrap">
+                        <div class="flex items-center">
+                            <span class="font-medium">${cellContent}</span>
+                        </div>
+                    </td>
+                `;
+            }).join('');
+            
             tbody.appendChild(rowHTML);
         });
+        
+        table.appendChild(thead);
         table.appendChild(tbody);
         
         container.appendChild(table);
+    }
+    
+    // Helper function to check if a string is likely an image URL
+    function isImageUrl(url) {
+        if (!url || typeof url !== 'string') return false;
+        
+        // List of common image file extensions
+        const imageExtensions = [
+            '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg'
+        ];
+        
+        // Check if the URL ends with an image extension
+        return imageExtensions.some(ext => 
+            url.toLowerCase().endsWith(ext) || 
+            url.toLowerCase().includes(ext)
+        );
     }
 
     const hash = window.location.hash.substring(1);
