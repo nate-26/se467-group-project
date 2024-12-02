@@ -57,12 +57,11 @@ document.addEventListener('DOMContentLoaded', function () {
             'border-collapse'
         );
         
-        const headers = Object.keys(data[0]);
-        
-        // Enhanced table header
+        const headers = [...Object.keys(data[0]), 'Cart'];
+    
         const thead = document.createElement('thead');
         thead.innerHTML = `
-            <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+            <tr class="bg-gray-100 text-black uppercase text-sm leading-normal">
                 ${headers.map(header => 
                     `<th class="px-6 py-3 text-left font-semibold tracking-wider border-b">${header}</th>`
                 ).join('')}
@@ -70,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         
         const tbody = document.createElement('tbody');
-        tbody.classList.add('text-gray-600', 'text-sm', 'font-light');
+        tbody.classList.add('text-black', 'text-sm', 'font-light');
         
         data.forEach((row, index) => {
             const rowHTML = document.createElement('tr');
@@ -81,7 +80,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
             );
             
-            rowHTML.innerHTML = headers.map(header => {
+            // Create cell content including original data and a new 'Add to Cart' button
+            const cellsHTML = headers.map(header => {
+                // If last column
+                if (header === 'Cart') {
+                    return `
+                    <td class="px-6 py-3 text-left whitespace-nowrap">
+                        <button
+                        class="add-to-cart-btn bg-gray-100 text-white p-2 rounded hover:bg-green-600 transition-colors flex items-center justify-center"
+                        data-part-id="${row.id || ''}"
+                        data-part-name="${row.name || ''}"
+                        >
+                            <img src="/cart.svg" alt="Add to Cart" class="w-6 h-6"/>
+                        </button>
+                    </td>
+                    `;
+                }
+                
+                // Handle original data cells
                 let cellContent = row[header];
                 
                 // Check if the content looks like an image URL
@@ -105,6 +121,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 `;
             }).join('');
             
+            rowHTML.innerHTML = cellsHTML;
+            
             tbody.appendChild(rowHTML);
         });
         
@@ -112,16 +130,26 @@ document.addEventListener('DOMContentLoaded', function () {
         table.appendChild(tbody);
         
         container.appendChild(table);
+        
+        // Add event listeners for Add to Cart buttons
+        container.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const partId = this.getAttribute('data-part-id');
+                const partName = this.getAttribute('data-part-name');
+                
+                // Example cart interaction - you'll want to replace this with your actual cart logic
+                addToCart(partId, partName);
+            });
+        });
     }
     
-    // Helper function to check if a string is likely an image URL
+    //What to do when a customer clicks "Add to cart"
+    function addToCart(partID, partName){}
+
+    // Helper function to check for image
     function isImageUrl(url) {
         if (!url || typeof url !== 'string') return false;
-        
-        // List of common image file extensions
-        const imageExtensions = [
-            '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg'
-        ];
+        const imageExtensions = [ '.jpg', '.jpeg', '.png', '.webp', '.svg' ];
         
         // Check if the URL ends with an image extension
         return imageExtensions.some(ext => 
