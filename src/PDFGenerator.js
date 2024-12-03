@@ -5,7 +5,7 @@ const fs = require('fs');
 const doc = new PDFDocument();
 
 // Pipe the PDF document to a file
-doc.pipe(fs.createWriteStream('output.pdf'));
+doc.pipe(fs.createWriteStream('invoice.pdf'));
 
 // Add content to the PDF
 doc.fontSize(25)

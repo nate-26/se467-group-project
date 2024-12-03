@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         data-part-id="${row.id || ''}"
                         data-part-name="${row.name || ''}"
                         >
-                            <img src="/cart.svg" alt="Add to Cart" class="w-6 h-6"/>
+                            <img src="/assets/cart.svg" alt="Add to Cart" class="w-6 h-6"/>
                         </button>
                     </td>
                     `;
