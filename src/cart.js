@@ -60,43 +60,42 @@ CartManager.prototype.renderCartDetails = function() {
                   <p class="text-base font-semibold text-gray-900">${item.name}</p>
                 </div>
       
-                <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
-                  <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">$${item.price}</p>
-
-                <div class="sm:order-1">
-                  <div class="mx-auto flex h-8 items-stretch text-gray-600">
-                    <button class="flex items-center justify-center rounded-l-md bg-gray-200 px-4 transition hover:bg-black hover:text-white">-</button>
-                    <div class="flex w-full items-center justify-center bg-gray-100 px-4 text-xs uppercase transition">${item.quantity}</div>
-                    <button class="flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white">+</button>
-                  </div>
-                </div>
-                </div>
-                </div>
+            <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
+              <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">$${item.price}</p>
+            <div class="sm:order-1">
+              <div class="mx-auto flex h-8 items-stretch text-gray-600">
+                <button class="flex items-center justify-center rounded-l-md bg-gray-200 px-4 transition hover:bg-black hover:text-white">-</button>
+                <div class="flex w-full items-center justify-center bg-gray-100 px-4 text-xs uppercase transition">${item.quantity}</div>
+                <button class="flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white">+</button>
+              </div>
+            </div>
+            </div>
+            </div>
       
-                <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
-                  <button type="button" class="remove-from-cart-btn flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900"
-                   data-part-id="data-part-id">
-                    <svg class="block h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" class=""></path>
-                    </svg>
-                  </button>
-                </div>
-                </div>
-                </li>   
+            <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
+              <button type="button" class="remove-from-cart-btn flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900"
+               data-part-id="data-part-id">
+                <svg class="block h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" class=""></path>
+                </svg>
+              </button>
+            </div>
+            </div>
+            </li>   
             </div>     
-                            <div class="mt-6 border-t border-b py-2">
-                  <div class="flex items-center justify-between">
+            <div class="mt-6 border-t border-b py-2">
+                <div class="flex items-center justify-between">
                     <p class="text-sm text-gray-400">SUBTOTAL</p>
                     <p class="text-lg font-semibold text-gray-900">$${(item.price * item.quantity).toFixed(2)}</p>
-                  </div>
-                </div>     
+                </div>
+            </div>     
         `}).join('');
 
         // Render Total
          cartContainer.innerHTML += `
         <div class="my-6 flex items-center justify-between">
-        <p class="text-sm font-medium text-gray-900">TOTAL</p>
-        <p class="text-2xl font-semibold text-gray-900"><span class="text-xs font-normal text-gray-400">USD </span>$${totalSubtotal.toFixed(2)}</p>
+            <p class="text-sm font-medium text-gray-900">TOTAL</p>
+            <p class="text-2xl font-semibold text-gray-900"><span class="text-xs font-normal text-gray-400">USD </span>$${totalSubtotal.toFixed(2)}</p>
         </div>
          `;
     }
