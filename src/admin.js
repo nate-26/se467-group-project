@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
         container.appendChild(table);
         
     }
-    
+
 
     // Helper function to check for image
     function isImageUrl(url) {
