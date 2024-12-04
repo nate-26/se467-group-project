@@ -1,7 +1,4 @@
 # Software Engineering CSCI 467 Group Project
-
-## Nate Branch
-
 ### Product System - Problem Statement
 
 As a group of software engineers with a company that sells auto parts via a catalog and mail order, you are tasked to build a new system that enables Internet customers to place and pay for orders online. The system will handle credit card payment, assist in packing and shipping of the order, and keep inventory.
@@ -17,3 +14,26 @@ A second interface to the new system will run on workstations in the warehouse: 
 A third interface also runs in the warehouse, at the receiving desk. Whenever products are delivered they are added to the inventory: they can be recognized by their description or part number. Their quantity on hand is updated. Note that the legacy product database does not contain inventory information.
 
 And lastly, there will be an administrative interface that allows to set the shipping and handling charges, as well as view all orders. Shipping and handling charges are based on the weight of a complete order. This interface allows to set the weight brackets and their charges. Orders can be searched based on date range, status (authorized, shipped) or prize range. The complete order detail is displayed for a selected order.
+## Dependencies and Resources Used
+ExpressJS \
+    https://expressjs.com/ \
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    mysql2 \
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.npmjs.com/package/mysql2 \
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    dotenv \
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.npmjs.com/package/dotenv \
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    cors \
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.npmjs.com/package/cors
+
+PDFKit \
+    https://pdfkit.org/
+
+TailwindCSS \
+    https://tailwindcss.com/docs/installation/using-postcss
+
+Heroicons \
+    https://heroicons.com/
+
+Componentland \
+    https://componentland.com/components
+
+

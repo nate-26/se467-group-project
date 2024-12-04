@@ -3,8 +3,10 @@
   <head>
     <link href="/src/styles/input.css" rel="stylesheet" />
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/public/assets/wrench.svg" />
+    <link rel="icon" type="image/svg+xml" href="/wrench.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/src/cart.js"></script>
+    <script src="/src/admin.js"></script>
     <title>Catalog</title>
   </head>
   <body>
@@ -15,7 +17,7 @@
         class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
       >
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="/public/assets/wrench.svg" class="h-8 pr-4" alt="The Wrench Logo" />
+          <img src="/assets/wrench.svg" class="h-8 pr-4" alt="The Wrench Logo" />
           <span
             class="self-center text-2xl font-semibold whitespace-nowrap text-gray-800"
             >The Wrench</span
@@ -95,14 +97,14 @@
             </li>
             <li>
               <a
-                href="/about"
+                href="/public/about"
                 class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent text-black md:p-0 hover:text-black dark:hover:bg-gray-700 dark:hover:text-black md:dark:hover:bg-transparent dark:border-gray-700"
                 >About</a
               >
             </li>
             <li>
               <a
-                href="/cart"
+                href="/public/cart"
                 class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent text-black md:p-0 hover:text-black dark:hover:bg-gray-700 dark:hover:text-black md:dark:hover:bg-transparent dark:border-gray-700"
                 >Cart</a
               >
@@ -128,7 +130,7 @@
             href="/"
             class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
           >
-            <img src="/public/assets/wrench.svg" class="h-8 pr-4" alt="The Wrench Logo" />
+            <img src="/assets/wrench.svg" class="h-8 pr-4" alt="The Wrench Logo" />
             <span
               class="self-center text-2xl font-semibold whitespace-nowrap text-black"
               >The Wrench</span
@@ -138,20 +140,20 @@
             class="flex flex-wrap items-center mb-6 text-sm font-medium text-black sm:mb-0"
           >
             <li>
-              <a href="/about" class="hover:underline me-4 md:me-6">About</a>
+              <a href="/public/about" class="hover:underline me-4 md:me-6">About</a>
             </li>
             <li>
-              <a href="/privacypolicy" class="hover:underline me-4 md:me-6"
+              <a href="/public/privacypolicy" class="hover:underline me-4 md:me-6"
                 >Privacy Policy</a
               >
             </li>
             <li>
-              <a href="/careers" class="hover:underline me-4 md:me-6"
+              <a href="/public/careers" class="hover:underline me-4 md:me-6"
                 >Careers</a
               >
             </li>
             <li>
-              <a href="/ege" class="hover:underline">Ege</a>
+              <a href="/public/ege" class="hover:underline">Ege</a>
             </li>
           </ul>
         </div>
