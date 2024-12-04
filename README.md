@@ -24,7 +24,7 @@ ExpressJS \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    cors \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.npmjs.com/package/cors \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    nodemailer \
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.nodemailer.com/ \
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.nodemailer.com/
 
 PDFKit \
     https://pdfkit.org/
