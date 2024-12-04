@@ -1,3 +1,4 @@
+
 function CartManager() {
     this.cart = JSON.parse(sessionStorage.getItem('cart')) || [];
     this.updateCartDisplay();
@@ -18,27 +19,52 @@ CartManager.prototype.addToCart = function(item) {
     this.updateCartDisplay();
 }
 
+// Remove an item from cart
 CartManager.prototype.removeFromCart = function(itemId) {
+    const itemExists = this.cart.some(item => item.id === itemId);
+    if (!itemExists) {
+        console.log('Item not found in cart.');
+        return;
+    }
+    console.log('Removing item');
     this.cart = this.cart.filter(item => item.id !== itemId);
     this.saveCart();
     this.updateCartDisplay();
 }
 
+// Save to session storage
 CartManager.prototype.saveCart = function() {
     sessionStorage.setItem('cart', JSON.stringify(this.cart));
 }
 
 CartManager.prototype.updateCartDisplay = function() {
     const cartCountElement = document.getElementById('cart-count');
+    
+    // Calculate the total quantity of items in the cart
     const totalQuantity = this.cart.reduce((total, item) => total + item.quantity, 0);
-   
+
+    // Update the cart count display in the UI
     if (cartCountElement) {
-        cartCountElement.textContent = totalQuantity;
-        cartCountElement.classList.toggle('hidden', totalQuantity === 0);
+        cartCountElement.textContent = totalQuantity;  // Display the total quantity
+        cartCountElement.classList.toggle('hidden', totalQuantity === 0); // Hide the cart count if it's 0
     }
+
+    // Update individual item quantities in the cart details
+    this.cart.forEach(item => {
+        const itemContainer = document.querySelector(`[data-item-id="${item.id}"]`); // Find the item by ID
+        if (itemContainer) {
+            const quantityElement = itemContainer.querySelector('.item-quantity'); // Find the quantity display
+            if (quantityElement) {
+                quantityElement.textContent = item.quantity; // Update the displayed quantity
+            }
+        }
+    });
+
+    // Render the detailed cart view (if needed)
     this.renderCartDetails();
 }
 
+// Display Cart and Details
 CartManager.prototype.renderCartDetails = function() {
     const cartContainer = document.getElementById('cart-container');
     let totalSubtotal = 0;
@@ -63,18 +89,20 @@ CartManager.prototype.renderCartDetails = function() {
             <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
               <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">$${item.price}</p>
             <div class="sm:order-1">
-              <div class="mx-auto flex h-8 items-stretch text-gray-600">
-                <button class="flex items-center justify-center rounded-l-md bg-gray-200 px-4 transition hover:bg-black hover:text-white">-</button>
-                <div class="flex w-full items-center justify-center bg-gray-100 px-4 text-xs uppercase transition">${item.quantity}</div>
-                <button class="flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white">+</button>
-              </div>
+              <div class="mx-auto flex h-8 items-stretch text-gray-600" data-item-id="${item.id}">
+
+            <!-- Quantity display -->
+            <div class="flex w-full items-center justify-center bg-gray-100 px-4 text-xs uppercase transition item-quantity">
+            ${item.quantity} <!-- This is where the quantity is displayed -->
+            </div>
+            </div>
             </div>
             </div>
             </div>
       
             <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
               <button type="button" class="remove-from-cart-btn flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900"
-               data-part-id="data-part-id">
+               data-part-id="${item.id}">
                 <svg class="block h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" class=""></path>
                 </svg>
@@ -126,9 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-CartManager.prototype.removeFromCart = function(itemId) {
-    this.cart = this.cart.filter(item => item.id !== itemId);
-    this.saveCart();
-    this.updateCartDisplay();
-    location.reload(); // Refresh the page
-}
+// Attach event listeners to the buttons
+document.querySelectorAll('.quantity-buttons').forEach(buttonContainer => {
+  const itemId = buttonContainer.getAttribute('data-item-id');  // Get the item ID from the data attribute
+
+  const decrementButton = buttonContainer.querySelector('.decrement');
+  const incrementButton = buttonContainer.querySelector('.increment');
+
+  decrementButton.addEventListener('click', () => changeQuantity(itemId, 'decrement'));
+  incrementButton.addEventListener('click', () => changeQuantity(itemId, 'increment'));
+});

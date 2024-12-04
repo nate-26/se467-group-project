@@ -131,20 +131,8 @@ document.addEventListener('DOMContentLoaded', function () {
         
         container.appendChild(table);
         
-        // Add event listeners for Add to Cart buttons
-        container.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const partId = this.getAttribute('data-part-id');
-                const partName = this.getAttribute('data-part-name');
-                
-                // Example cart interaction - you'll want to replace this with your actual cart logic
-                addToCart(partId, partName);
-            });
-        });
     }
-    
-    //What to do when a customer clicks "Add to cart"
-    function addToCart(partID, partName){}
+
 
     // Helper function to check for image
     function isImageUrl(url) {
