@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Import Cart
     const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-    const cardData = JSON.parse(sessionStorage.getItem('cardValidationData')) || [];
+
+    // Calculate Tax and Subtotal for Order
     let Subtotal = 0;
     let Tax = 0;
     cart.forEach(item => {
@@ -15,18 +16,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     generatePDFButton.addEventListener('click', () => {
+        // Create PDF
         const doc = new jsPDF();
+
+        // Retrieve customer data first
+        const customerData = JSON.parse(sessionStorage.getItem('customerData')) || {
+            firstName: 'Sample',
+            lastName: 'Customer',
+            address: 'Sample Address',
+            city: 'Sample City',
+            state: 'Sample State'
+        };
+
         doc.setFontSize(25);
         const WrenchCorpInvoice = 'WrenchCorp Invoice';
         const textWidth = doc.getTextWidth(WrenchCorpInvoice);
         const pageWidth = doc.internal.pageSize.width;
         const xPosition = (pageWidth - textWidth) / 2;
-        const customerName = 'Sample Customer Name';
-        const customerAddr = 'Sample Customer Addr';
-        const customerAddrLine2 = 'Sample Customer Addr Line 2';
+        const customerName = `${customerData.firstName} ${customerData.lastName}`;
+        const customerAddr = customerData.address;
         const ShippingLabel = 'Shipping Label';
-        const customerState = 'Sample Customer State';
-        const customerCity = 'Sample Customer City';
+        const customerState = customerData.state;
+        const customerCity = customerData.city;
         const Shipping = 20;
         const Total = (parseFloat(Subtotal) + parseFloat(Shipping) + parseFloat(Tax)).toFixed(2);
 
@@ -49,9 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.setFontSize(12);
     doc.text(customerName,xPosition+7,130);
     doc.text(customerAddr,xPosition+7,140);
-    doc.text(customerAddrLine2,xPosition+7,150);
-    doc.text(customerState+ ', ' + customerCity,xPosition+7,160);
-    doc.text('United States of America',xPosition+7,170);
+    doc.text(customerState+ ', ' + customerCity,xPosition+7,150);
+    doc.text('United States of America',xPosition+7,160);
 
 
 

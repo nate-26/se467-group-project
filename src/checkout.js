@@ -1,5 +1,5 @@
-const orderNumber = (Math.floor(Math.random() * (Math.floor(1000000) - Math.ceil(1) + 1) + Math.ceil(1)));
-export { orderNumber };
+export const orderNumber = (Math.floor(Math.random() * (Math.floor(1000000) - Math.ceil(1) + 1) + Math.ceil(1)));
+
 document.addEventListener('DOMContentLoaded', () => {
     // Select form elements
     const firstName = document.getElementById('firstName');
@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cardNumber.value.replace(/\D/g, '').length !== 16) errors.push('Invalid Card Number');
         if (!/^\d{2}\/\d{4}$/.test(expirationDate.value)) errors.push('Invalid Expiration Date'); // Updated regex for MM/YYYY
         if (!/^\d{3}$/.test(securityCode.value)) errors.push('Invalid Security Code');
-
         return errors;
     }
 
@@ -49,6 +48,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function hideErrorSplash() {
         errorSplash.classList.add('hide');
     }
+
+    confirmPaymentBtn.addEventListener('click', () => {
+        const errors = validateLocalForm();
+        if (errors.length > 0) {
+            showErrorSplash(errors);
+        } else {
+            hideErrorSplash();
+            sessionStorage.setItem('customerData', JSON.stringify({
+                firstName: firstName.value,
+                lastName: lastName.value,
+                address: streetAddress.value,
+                city: city.value,
+                state: stateSelect.value
+            }));
+        }
+    });
 
     // Function to show inline error message on form fields
     function showInlineError(fieldId, errorMessage) {
