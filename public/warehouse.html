@@ -6,6 +6,8 @@
     <link rel="icon" type="image/svg+xml" href="/wrench.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Warehouse</title>
+    <script type="module" src="/src/pdfgenerator.js"></script>
+    <script src="/src/cart.js"></script>
   </head>
 
   <!-- Warehouse Panel Header -->
@@ -29,7 +31,6 @@
   <!-- Orders Tables -->
     <div class="flex justify-center items-center mb-8">
       <div class="flex w-1/2 space-x-4">
-
         <!-- New Orders Table -->
         <div class="bg-gray-200 flex-1 overflow-y-scroll h-96">
           <!-- *********NEW TABLE CONTENT ENTERED HERE*********** -->
@@ -49,7 +50,7 @@
 
   <!-- PDF Generator Button -->
   <div class="flex justify-center">
-    <button class="shrink-0 rounded-full bg-green-600 px-8 py-3 font-medium text-white focus:bg-red-700 focus:outline-none hover:bg-red-700">Generate PDF</button>
+    <button id="PDFButton" class="shrink-0 rounded-full bg-green-600 px-8 py-3 font-medium text-white focus:bg-red-700 focus:outline-none hover:bg-red-700">Generate PDF</button>
   </div>  
 
   <!-- Homepage Button -->
