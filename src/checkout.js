@@ -29,6 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cardNumber.value.replace(/\D/g, '').length !== 16) errors.push('Invalid Card Number');
         if (!/^\d{2}\/\d{4}$/.test(expirationDate.value)) errors.push('Invalid Expiration Date'); // Updated regex for MM/YYYY
         if (!/^\d{3}$/.test(securityCode.value)) errors.push('Invalid Security Code');
+        const email = document.getElementById('email').value.trim();
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!email || !emailRegex.test(email)) {
+            errors.push('Invalid Email Address');
+        }
 
         return errors;
     }
@@ -162,3 +167,34 @@ document.addEventListener('DOMContentLoaded', () => {
         e.target.value = value;
     });
 });
+
+document.getElementById('checkout-form').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the form from submitting the default way
+  
+    // Collect form data
+    const formData = new FormData(event.target);
+    const data = {
+      recipientName: formData.get('recipientName'),
+      recipientEmail: formData.get('recipientEmail'),
+      emailSubject: formData.get('emailSubject'),
+      emailBody: formData.get('emailBody')
+    };
+  
+    // Send the data to the server
+    fetch('http://localhost:3000/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(data),
+    })
+    .then(response => response.text())
+    .then(responseText => {
+      alert('Email sent successfully!');
+      console.log(responseText);  // Handle response from server
+    })
+    .catch(error => {
+      alert('There was an error sending the email');
+      console.error('Error:', error);  // Handle error
+    });
+  });

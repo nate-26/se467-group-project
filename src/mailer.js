@@ -1,9 +1,8 @@
 // Step 1: Install required packages
 // npm install express nodemailer body-parser
-
-const express = require('express');
-const nodemailer = require('nodemailer');
-const bodyParser = require('body-parser');
+import express from 'express';
+import nodemailer from 'nodemailer';
+import bodyParser from 'body-parser';
 
 const app = express();
 const port = 3000;
@@ -16,25 +15,19 @@ app.use(express.static('public')); // Serve static files from 'public' directory
 const transporter = nodemailer.createTransport({
   service: 'gmail', // Or use another email service
   auth: {
-    user: 'your-email@gmail.com', // Your email
-    pass: 'your-app-password' // Use an app password for security
+    user: process.env.EMAIL_USER, // Your email
+    pass: process.env.EMAIL_PASS // Use an app password for security
   }
 });
 
-// Route to handle email sending
 app.post('/send-email', (req, res) => {
-  // Extract form data
-  const { 
-    recipientName, 
-    recipientEmail, 
-    emailSubject, 
-    emailBody 
-  } = req.body;
+  const { recipientName, recipientEmail, emailSubject, emailBody } = req.body;
 
-  // Email configuration
+  console.log('Received email data:', { recipientName, recipientEmail, emailSubject, emailBody });
+
   const mailOptions = {
-    from: 'your-email@gmail.com',
-    to: recipientEmail,
+    from: process.env.EMAIL_USER,
+    to: recipientEmail,  // Ensure this is populated correctly
     subject: emailSubject,
     html: `
       <h1>Hello ${recipientName},</h1>
@@ -43,11 +36,10 @@ app.post('/send-email', (req, res) => {
     `
   };
 
-  // Send email
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log('Error:', error);
-      return res.status(500).send('Error sending email');
+      console.log('Error sending email:', error);
+      return res.status(500).send(`Error sending email: ${error.message}`);
     }
     console.log('Email sent:', info.response);
     res.status(200).send('Email sent successfully');
