@@ -80,3 +80,23 @@ app.get('/api/new/parts', (req, res) => {
         }
     });
 });
+
+// Search endpoint for parts
+app.get('/api/search/parts', (req, res) => {
+  const searchQuery = req.query.q; // Get query parameter
+  const query = `
+      SELECT number, description, price, weight, pictureURL 
+      FROM parts 
+      WHERE number LIKE ? OR description LIKE ?`;
+
+  const queryParams = [`%${searchQuery}%`, `%${searchQuery}%`];
+  
+  newDB.query(query, queryParams, (err, results) => {
+      if (err) {
+          console.error('Error searching parts:', err);
+          res.status(500).json({ error: 'Error searching parts', details: err.message });
+      } else {
+          res.json(results);
+      }
+  });
+});

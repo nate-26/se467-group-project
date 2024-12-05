@@ -23,8 +23,9 @@ ExpressJS \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.npmjs.com/package/dotenv \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    cors \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.npmjs.com/package/cors \
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    nodemailer \
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.nodemailer.com/
+    
+nodemailer \
+     https://www.nodemailer.com/ \
 
 jspdf \
     https://parall.ax/products/jspdf
