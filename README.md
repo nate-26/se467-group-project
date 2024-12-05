@@ -22,10 +22,13 @@ ExpressJS \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    dotenv \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.npmjs.com/package/dotenv \
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    cors \
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.npmjs.com/package/cors
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    https://www.npmjs.com/package/cors \
+    
+nodemailer \
+     https://www.nodemailer.com/ \
 
-PDFKit \
-    https://pdfkit.org/
+jspdf \
+    https://parall.ax/products/jspdf
 
 TailwindCSS \
     https://tailwindcss.com/docs/installation/using-postcss
