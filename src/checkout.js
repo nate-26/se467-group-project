@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const securityCode = document.getElementById('securityCode');
     const confirmPaymentBtn = document.getElementById('confirmPayment');
     const errorSplash = document.getElementById('errorSplash');
+    const email = document.getElementById('email');
 
     // Generate unique transaction and vendor IDs
     function generateUniqueId() {
@@ -93,6 +94,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Send confirmation email
+    async function sendConfirmationEmail(emailData) {
+        try {
+            const response = await fetch('/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(emailData)
+            });
+            if (!response.ok) {
+                throw new Error('Failed to send email');
+            }
+            console.log('Email sent successfully');
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    }
+
     // Confirm payment event listener
     confirmPaymentBtn.addEventListener('click', async () => {
         // Reset error splash and clear all inline errors
@@ -144,6 +162,41 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show the authorization number container
             const authorizationNumberContainer = document.getElementById('authorizationNumberContainer');
             authorizationNumberContainer.classList.remove('hidden'); // Make it visible
+
+            // Prepare email data and send confirmation email
+            const emailData = {
+                recipientName: `${firstName.value} ${lastName.value}`,
+                recipientEmail: email.value,
+                emailSubject: 'Order Confirmation - The Wrench',
+                emailBody: `
+                    <h1>Hello ${firstName.value},</h1>
+                    <p>Thank you for your order! Your order has been processed successfully.</p>
+                    <p><b>Order Details:</b></p>
+                    <ul>
+                        <li>Name: ${firstName.value} ${lastName.value}</li>
+                        <li>Address: ${streetAddress.value}, ${city.value}, ${stateSelect.value}</li>
+                        <li>Authorization Number: ${authorizationNumber}</li>
+                    </ul>
+                    <p>Thank you for shopping with us, have an amazing day!<br>The Wrench</p>
+                `
+            };
+
+            try {
+                const response = await fetch('/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(emailData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to send email');
+                }
+
+                console.log('Email sent successfully');
+            } catch (error) {
+                console.error('Error sending email:', error);
+                // Optionally, show an error message to the user
+            }
 
         } catch (error) {
             // Show error from validation service
