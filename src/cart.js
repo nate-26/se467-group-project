@@ -1,4 +1,3 @@
-
 function CartManager() {
     this.cart = JSON.parse(sessionStorage.getItem('cart')) || [];
     this.updateCartDisplay();
