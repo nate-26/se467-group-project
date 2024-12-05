@@ -8,49 +8,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Wrench</title>
   </head>
-  <body class="bg-neutral-900">
+  <body class="bg-gray-200">
     <div id="app"></div>
-    <script type="module" src="/checkout.js"></script>
-
-
-
-  <div class="bg-red-500 p-4 text-3xl">Checkout</div>
-
-<div id="errorSplash" class="error-splash hide">
-  <div class="font-bold mb-2">Invalid Card Information</div>
-  <div>Please check your card details and input the correct information.</div>
-</div>
-    
-    <div class="flex justify-center space-x-8">
-      <div><h1 class="text-4xl text-white">The Wrench</h1><br></div>
+    <script type="module" src="/src/checkout.js"></script>
+  <div class="bg-gray-300 p-4 text-3xl">
+    <h1 class="text-3xl font-serif hover:underline">Back</div></h1>
+    <div id="errorSplash" class="error-splash hide">
+        <div class="font-bold mb-2">Invalid Card Information</div>
+            <div>Please check your card details and input the correct information.</div>
     </div>
-
-    <div class="flex justify-center space-x-8"><img src="/wrench.png" class="w-32"></div>
-    
+    <div class="flex justify-center space-x-8">
+      <div><h1 class="text-4xl text-gray-900 font-serif my-4">Checkout</h1><br></div>
+    </div>
+    <div class="flex justify-center space-x-8"><img src="/assets/wrench.svg" class="w-32"></div>
     <div class="flex justify-center space-x-8">
     <form id="custInfo">
-      <div><br><label class="text-white" for="custFName">First Name:</label><br></div>
+      <div><br><label class="text-gray-800" for="custFName">First Name:</label><br></div>
       <div><input type="text" id="custFName" maxlength="30" placeholder="John" required><br></div>
-     
-
-      
-      <div><br><label class="text-white" for="custLName">Last Name:</label><br></div>
+      <div><br><label class="text-gray-800" for="custLName">Last Name:</label><br></div>
       <div><input type="text" id="custLName" placeholder="Lehuta" required><br><br></div>
-    
-
-    
-      <div><label class="text-white" for="streetAddr">Street Address:</label><br></div>
+      <div><label class="text-gray-800" for="streetAddr">Street Address:</label><br></div>
       <div><input type="text" id="streetAddr" placeholder="308 Negra Arroyo Lane" required><br><br></div>
-    
-
-    
-      <div><label class="text-white" for="cityAddr">City:</label><br></div>
+      <div><label class="text-gray-800" for="cityAddr">City:</label><br></div>
       <div><input type="text" id="cityAddr" placeholder="Albuquerque" required><br><br></div>
-    
-    
-    
-      <div> <label class="text-white" for="states">Select a state:</label><br></div>
-      <select id="states" name="states">
+      <div><label class="text-gray-800" for="states">Select a state:</label><br></div>
+      <select id="states" name="states" class="border-b-2 border-gray-800">
         <option value="">-- Select a state --</option>
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
@@ -105,19 +87,15 @@
       </select>
       </div>
     </form>
-
     <div class="flex justify-center space-x-8">
     <form id="cardform">
-      <div><br><br><label class="text-white" for="cardNumber">Card Number:</label><br></div>
-      <div><input type="text" id="cardNumber" maxlength="16" placeholder="1234 5678 9012 3456" required><br></div>
-      
-      <div><label class="text-white" for="expiryDate">Expiration Date:</label><br></div>
-      <div><input type="text" id="expiriationDate" maxlength="4" placeholder="MM/YY" required><br></div>
-      
-      <div><label class="text-white" for="securtyCode">Security Code:</label><br></div>
-      <div><input type="text" id="securityCode" maxlength="3" placeholder="123" required><br><br></div>
-      
-      <div><button class="button button--action" type="button" onclick="validateForm()">Confirm Payment</button></div>
+      <div><br><br><label class="text-gray-800" for="cardNumber">Card Number:</label><br></div>
+      <div><input type="text" id="cardNumber" maxlength="16" placeholder="1234 5678 9012 3456" required><br></div> 
+      <div><label class="text-gray-800" for="expiryDate">Expiration Date:</label><br></div>
+      <div><input type="text" id="expiriationDate" maxlength="4" placeholder="MM/YY" required><br></div>   
+      <div><label class="text-gray-800" for="securtyCode">Security Code:</label><br></div>
+      <div><input type="text" id="securityCode" maxlength="3" placeholder="123" required><br><br></div>  
+      <div><button class="button button--action hover:bg-gray-800 w-45" type="button" onclick="validateForm()">Confirm Payment</button></div>
     </form>
     </div>
 
