@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             trans: generateUniqueId(),  // Unique transaction ID
             cc: cardNumber.value.replace(/\D/g, ''),  // Card number without spaces
             name: `${firstName.value} ${lastName.value}`,
-            exp: `20${expirationDate.value.slice(3)}`, // Ensure full year format
+            exp: expirationDate.value, 
             amount: '50.00'  // Adjust this dynamically if needed
         };
 
