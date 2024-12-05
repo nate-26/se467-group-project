@@ -1,6 +1,5 @@
-const express = require('express');
-const nodemailer = require('nodemailer');
-const bodyParser = require('body-parser');
+import express from 'express';
+import nodemailer from 'nodemailer';
 
 const app = express();
 const port = 3000;

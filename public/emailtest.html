@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #sendEmailBtn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #emailForm {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        input {
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div id="emailForm">
+        <h2>Send Test Email</h2>
+        <input type="text" id="recipientName" placeholder="Recipient Name" required>
+        <input type="email" id="recipientEmail" placeholder="Recipient Email" required>
+        <button id="sendEmailBtn">Send Email</button>
+        <p id="status"></p>
+    </div>
+
+    <script src="emailTest.js"></script>
+</body>
+</html>

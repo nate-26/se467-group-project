@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const securityCode = document.getElementById('securityCode');
     const confirmPaymentBtn = document.getElementById('confirmPayment');
     const errorSplash = document.getElementById('errorSplash');
+    const custEmail = document.getElementById('custEmail')
 
     // Generate unique transaction and vendor IDs
     function generateUniqueId() {
@@ -145,6 +146,55 @@ document.addEventListener('DOMContentLoaded', () => {
             showErrorSplash(error.message);
         }
     });
+
+    // Email stuff
+    // Modify confirmPaymentBtn listener to send email
+  confirmPaymentBtn.addEventListener('click', async () => {
+    // Existing validation logic stays the same
+    // After successful credit card validation, send email
+
+    try {
+      // Use the existing credit card validation response
+      const response = await validateCreditCard(cardValidationData);
+
+      if (response.errors && response.errors.length > 0) {
+        // Existing error handling stays the same
+        return;
+      }
+
+      // Send email after successful payment
+      await sendConfirmationEmail({
+        recipientName: `${firstName.value} ${lastName.value}`,
+        recipientEmail: custEmail.value,
+        emailSubject: 'Order Confirmation - The Wrench',
+        emailBody: `
+          Thank you for your order, ${firstName.value}!
+          
+          Order Details:
+          Name: ${firstName.value} ${lastName.value}
+          Address: ${streetAddress.value}
+          City: ${city.value}
+          State: ${stateSelect.value}
+
+          Authorization Number: ${response._id || response.trans}
+
+          Payment has been processed successfully.
+        `
+      });
+
+      // Existing authorization number display logic
+      const authorizationNumber = response._id || response.trans;
+      const authorizationNumberElement = document.getElementById('authorizationNumber');
+      authorizationNumberElement.textContent = authorizationNumber;
+
+      const authorizationNumberContainer = document.getElementById('authorizationNumberContainer');
+      authorizationNumberContainer.classList.remove('hidden');
+
+    } catch (error) {
+      console.error('Error:', error);
+      showErrorSplash('An error occurred during processing');
+    }
+  });
 
     // Optional: Format card number input
     cardNumber.addEventListener('input', (e) => {
