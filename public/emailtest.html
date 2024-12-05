@@ -1,51 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Email Test</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        #sendEmailBtn {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #emailForm {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        input {
-            margin: 10px 0;
-            padding: 8px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Email</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-    <div id="emailForm">
-        <h2>Send Test Email</h2>
-        <input type="text" id="recipientName" placeholder="Recipient Name" required>
-        <input type="email" id="recipientEmail" placeholder="Recipient Email" required>
-        <button id="sendEmailBtn">Send Email</button>
-        <p id="status"></p>
-    </div>
+  <div class="container">
+    <h1>Send an Email</h1>
+    <form action="/send-email" method="POST">
+      <label for="recipientName">Recipient Name:</label>
+      <input type="text" id="recipientName" name="recipientName" placeholder="Enter recipient's name" required>
 
-    <script src="emailTest.js"></script>
+      <label for="recipientEmail">Recipient Email:</label>
+      <input type="email" id="recipientEmail" name="recipientEmail" placeholder="Enter recipient's email" required>
+
+      <label for="emailSubject">Subject:</label>
+      <input type="text" id="emailSubject" name="emailSubject" placeholder="Enter email subject" required>
+
+      <label for="emailBody">Message:</label>
+      <textarea id="emailBody" name="emailBody" rows="5" placeholder="Enter your message" required></textarea>
+
+      <button type="submit">Send Email</button>
+    </form>
+  </div>
 </body>
 </html>
+

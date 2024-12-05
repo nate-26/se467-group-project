@@ -1,49 +1,91 @@
-// server.js
-const express = require('express');
-const mysql = require('mysql');
-const cors = require('cors');
-require('dotenv').config();
-const path = require('path');
+import express from 'express';
+import nodemailer from 'nodemailer';
+import bodyParser from 'body-parser';
+import mysql from 'mysql2';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
-app.use(cors());
+// Middleware to parse form data
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public')); // Serve static files from 'public' directory
+app.use(cors({
+  origin: 'http://localhost:5173',  // Allow only your frontend's origin
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
-// Serve static files from the public directory
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Create MySQL connection
-const connection = mysql.createConnection({
-    host: 'blitz.cs.niu.edu',
-    user: 'student',
-    password: 'student',
-    database: 'csci467',
-    port: 3306,
+// Create a Nodemailer transporter
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
 });
 
-// Connect to MySQL
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-        return;
+// Route to handle email sending
+app.post('/send-email', (req, res) => {
+  const { recipientName, recipientEmail, emailSubject, emailBody } = req.body;
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: 'nathaniel12027@gmail.com',
+    subject: 'Test',
+    html: `
+      <h1>Hello ${recipientName},</h1>
+      <p>Hello vro.</p>
+      <p>Best regards,<br>The Wrench</p>
+    `
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log('Error:', error);
+      return res.status(500).send('Error sending email');
     }
-    console.log('Connected to the database.');
+    console.log('Email sent:', info.response);
+    res.status(200).send('Email sent successfully');
+  });
 });
 
-// Endpoint to fetch parts data
-app.get('/api/parts', (req, res) => {
-    const query = 'SELECT * FROM parts';
-    connection.query(query, (err, results) => {
-        if (err) {
-            return res.status(500).send(err);
-        }
-        res.json(results);
-    });
+// Database connection setup
+const legacyDB = mysql.createConnection({
+  host: process.env.LEGACY_DB_HOST,
+  user: process.env.LEGACY_DB_USER,
+  password: process.env.LEGACY_DB_PASSWORD,
+  database: process.env.LEGACY_DB_NAME
 });
 
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+legacyDB.connect((err) => {
+  if (err) {
+    console.error('Legacy DB connection failed:', err.message);
+  } else {
+    console.log('Connected to legacy database');
+  }
+});
+
+const newDB = mysql.createConnection({
+  host: process.env.NEW_DB_HOST,
+  user: process.env.NEW_DB_USER,
+  password: process.env.NEW_DB_PASSWORD,
+  database: process.env.NEW_DB_NAME
+});
+
+newDB.connect((err) => {
+  if (err) {
+    console.error('New DB connection failed:', err.message);
+  } else {
+    console.log('Connected to new database');
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });

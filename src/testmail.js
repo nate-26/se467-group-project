@@ -29,8 +29,9 @@ app.post('/send-email', (req, res) => {
     to: recipientEmail,
     subject: emailSubject,
     html: `
-      <h1>Hello ${firstName},</h1>
-      <p>Thank you for shopping with us, have an amazing day!<br>Sincerely, The Wrench</p>
+      <h1>Hello ${recipientName},</h1>
+      <p>${emailBody}</p>
+      <p>Have an amazing day,<br>The Wrench</p>
     `,
   };
 
@@ -46,7 +47,7 @@ app.post('/send-email', (req, res) => {
 
 // Route to serve the HTML file at '/'
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve('public', 'checkout.html'));
+  res.sendFile(path.resolve('public', 'emailtest.html'));
 });
 
 // Start the server
