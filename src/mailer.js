@@ -28,11 +28,8 @@ app.post('/send-email', (req, res) => {
     from: 'thewrench467@gmail.com',
     to: recipientEmail,
     subject: emailSubject,
-    html: `
-      <h1>Hello ${firstName},</h1>
-      <p>Thank you for shopping with us, have an amazing day!<br>Sincerely, The Wrench</p>
-    `,
-  };
+    html: emailBody,
+};
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {

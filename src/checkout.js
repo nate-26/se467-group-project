@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const securityCode = document.getElementById('securityCode');
     const confirmPaymentBtn = document.getElementById('confirmPayment');
     const errorSplash = document.getElementById('errorSplash');
-    const custEmail = document.getElementById('custEmail')
+    const email = document.getElementById('email');
 
     // Generate unique transaction and vendor IDs
     function generateUniqueId() {
@@ -30,6 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cardNumber.value.replace(/\D/g, '').length !== 16) errors.push('Invalid Card Number');
         if (!/^\d{2}\/\d{4}$/.test(expirationDate.value)) errors.push('Invalid Expiration Date'); // Updated regex for MM/YYYY
         if (!/^\d{3}$/.test(securityCode.value)) errors.push('Invalid Security Code');
+        const email = document.getElementById('email').value.trim();
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!email || !emailRegex.test(email)) {
+            errors.push('Invalid Email Address');
+        }
 
         return errors;
     }
@@ -89,6 +94,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Send confirmation email
+    async function sendConfirmationEmail(emailData) {
+        try {
+            const response = await fetch('/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(emailData)
+            });
+            if (!response.ok) {
+                throw new Error('Failed to send email');
+            }
+            console.log('Email sent successfully');
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    }
+
     // Confirm payment event listener
     confirmPaymentBtn.addEventListener('click', async () => {
         // Reset error splash and clear all inline errors
@@ -141,60 +163,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const authorizationNumberContainer = document.getElementById('authorizationNumberContainer');
             authorizationNumberContainer.classList.remove('hidden'); // Make it visible
 
+            // Prepare email data and send confirmation email
+            await sendConfirmationEmail({
+                recipientName: `${firstName.value} ${lastName.value}`,
+                recipientEmail: email.value,
+                emailSubject: 'Order Confirmation - The Wrench',
+                emailBody: `
+                    <h1>Hello ${firstName.value},</h1>
+                    <p>Thank you for your order! Your order has been processed successfully.</p>
+                    <p><b>Order Details:</b></p>
+                    <ul>
+                        <li>Name: ${firstName.value} ${lastName.value}</li>
+                        <li>Address: ${streetAddress.value}, ${city.value}, ${stateSelect.value}</li>
+                        <li>Authorization Number: ${authorizationNumber}</li>
+                    </ul>
+                    <p>Thank you for shopping with us, have an amazing day!<br>The Wrench</P>
+                `
+            });
+
         } catch (error) {
             // Show error from validation service
             showErrorSplash(error.message);
         }
     });
-
-    // Email stuff
-    // Modify confirmPaymentBtn listener to send email
-  confirmPaymentBtn.addEventListener('click', async () => {
-    // Existing validation logic stays the same
-    // After successful credit card validation, send email
-
-    try {
-      // Use the existing credit card validation response
-      const response = await validateCreditCard(cardValidationData);
-
-      if (response.errors && response.errors.length > 0) {
-        // Existing error handling stays the same
-        return;
-      }
-
-      // Send email after successful payment
-      await sendConfirmationEmail({
-        recipientName: `${firstName.value} ${lastName.value}`,
-        recipientEmail: custEmail.value,
-        emailSubject: 'Order Confirmation - The Wrench',
-        emailBody: `
-          Thank you for your order, ${firstName.value}!
-          
-          Order Details:
-          Name: ${firstName.value} ${lastName.value}
-          Address: ${streetAddress.value}
-          City: ${city.value}
-          State: ${stateSelect.value}
-
-          Authorization Number: ${response._id || response.trans}
-
-          Payment has been processed successfully.
-        `
-      });
-
-      // Existing authorization number display logic
-      const authorizationNumber = response._id || response.trans;
-      const authorizationNumberElement = document.getElementById('authorizationNumber');
-      authorizationNumberElement.textContent = authorizationNumber;
-
-      const authorizationNumberContainer = document.getElementById('authorizationNumberContainer');
-      authorizationNumberContainer.classList.remove('hidden');
-
-    } catch (error) {
-      console.error('Error:', error);
-      showErrorSplash('An error occurred during processing');
-    }
-  });
 
     // Optional: Format card number input
     cardNumber.addEventListener('input', (e) => {
@@ -212,3 +203,34 @@ document.addEventListener('DOMContentLoaded', () => {
         e.target.value = value;
     });
 });
+
+document.getElementById('checkout-form').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the form from submitting the default way
+  
+    // Collect form data
+    const formData = new FormData(event.target);
+    const data = {
+      recipientName: formData.get('recipientName'),
+      recipientEmail: formData.get('recipientEmail'),
+      emailSubject: formData.get('emailSubject'),
+      emailBody: formData.get('emailBody')
+    };
+  
+    // Send the data to the server
+    fetch('http://localhost:3000/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(data),
+    })
+    .then(response => response.text())
+    .then(responseText => {
+      alert('Email sent successfully!');
+      console.log(responseText);  // Handle response from server
+    })
+    .catch(error => {
+      alert('There was an error sending the email');
+      console.error('Error:', error);  // Handle error
+    });
+  });
