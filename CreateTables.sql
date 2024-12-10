@@ -135,6 +135,7 @@ CREATE TABLE CustSeleItems
 (
    CartID INT,
    number INT,
+   quantity INT,
    FOREIGN KEY (CartID) REFERENCES Cart(CartID),
    FOREIGN KEY (number) REFERENCES parts(number)
 );

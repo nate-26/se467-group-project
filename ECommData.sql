@@ -33,13 +33,13 @@ INSERT INTO AccCart (AccID, CartID, Time) VALUES
     (1, 1, CURRENT_TIME),
     (2, 2, CURRENT_TIME);
 
-INSERT INTO CustSeleItems (CartID, number) VALUES
-    (1, 1),
-    (1, 2),
-    (1, 3),
-    (2, 2),
-    (2, 3),
-    (2, 2);
+INSERT INTO CustSeleItems (CartID, number, quantity) VALUES
+    (1, 1, 5),
+    (1, 2, 6),
+    (1, 3, 7),
+    (2, 2, 3),
+    (2, 3, 4),
+    (2, 1, 2);
 
 INSERT INTO StockDelivery (number, InventoryID, ShipInDate) VALUES
     (1, 1, '2/13/2024'),
